@@ -2,7 +2,7 @@
 #include <math.h>
 
 #define PI acos(-1)
-#define kun_beidai_y 0.05*tan(PI/3)
+#define kun_beidai_y 5*tan(PI/3)
 
 /**************
 ´«ÈëÀ¤µÄ×ø±êºÍ·½Ïò»­À¤
@@ -13,44 +13,44 @@ void DrawKUN(double x, double y, int direction)
 	SetPenSize(2);
 	
 	//»­À¤Á³
-	MovePen(x+0.1,y);    //0.1ÎªÀ¤Á³°ë¾¶
-	DrawArc(0.1,0,360);
+	MovePen(x+10,y);    //0.1ÎªÀ¤Á³°ë¾¶
+	DrawArc(10,0,360);
 	
 	//×óÀ¤Í·
-	MovePen(x,y+0.1);
-	DrawLine(0,0.05);
-	DrawLine(-0.15,-0.15);
-	DrawLine(0.05,-0.05);
-	DrawLine(0.1,0.1);
-	DrawLine(0,0.05);
+	MovePen(x,y+10);
+	DrawLine(0,5);
+	DrawLine(-15,-15);
+	DrawLine(5,-5);
+	DrawLine(10,10);
+	DrawLine(0,5);
 	
 	//ÓÒÀ¤Í·
-	MovePen(x,y+0.1);
-	DrawLine(0,0.05);
-	DrawLine(0.15,-0.15);
-	DrawLine(-0.05,-0.05);
-	DrawLine(-0.1,0.1);
-	DrawLine(0,0.05);
+	MovePen(x,y+10);
+	DrawLine(0,5);
+	DrawLine(15,-15);
+	DrawLine(-5,-5);
+	DrawLine(-10,10);
+	DrawLine(0,5);
 
 	//Ìî³ä×óÀ¤Í·
-	double px = x-0.15, py = y;
+	double px = x-15, py = y;
 	int i = 1;
-	while(i < 10){
-		MovePen(px + 0.005, py - 0.005);
-		DrawLine(0.15 - i*0.005, 0.15 - i*0.005);
-		px = px + 0.005;
-		py = py - 0.005;
+	while(i < 5){
+		MovePen(px + 1, py - 1);
+		DrawLine(15 - i, 15 - i);
+		px = px + 1;
+		py = py - 1;
 		i += 1;
 	}
 	
 	//Ìî³äÓÒÀ¤Í·
-	px = x+0.15; py = y;
+	px = x+15; py = y;
 	i=1;
-	while(i < 10){
-		MovePen(px - 0.005, py - 0.005);
-		DrawLine(-(0.15 - i*0.005), 0.15 - i*0.005);
-		px = px - 0.005;
-		py = py - 0.005;
+	while(i < 5){
+		MovePen(px - 1, py - 1);
+		DrawLine(-(15 - i), 15 - i);
+		px = px - 1;
+		py = py - 1;
 		i += 1;
 	}
 
@@ -59,14 +59,14 @@ void DrawKUN(double x, double y, int direction)
 	//×ó±³´ø¿ã
 	//px = x - 0.05;
 	//py = y - kun_beidai_y;
-	MovePen(x - 0.05,y - kun_beidai_y);
-	DrawLine(0,-0.15);
+	MovePen(x - 5,y - kun_beidai_y);
+	DrawLine(0,-15);
 
 	//ÓÒ±³´ø¿ã
 	//px = x + 0.05;
 	//py = y - kun_beidai_y;
-	MovePen(x + 0.05,y - kun_beidai_y);
-	DrawLine(0,-0.15);
+	MovePen(x + 5,y - kun_beidai_y);
+	DrawLine(0,-15);
 	
 }
 
@@ -74,10 +74,10 @@ void CleanKUN(double x, double y, int direction)
 {
 	SetPenSize(1);
 	SetPenColor("White");
-	MovePen(x-0.15,y+0.15);
+	MovePen(x-15,y+15);
 	int i=0;
 	for(i=0;i<48;i++){
-		DrawLine(0.31,0);
-		MovePen(x-0.15,y+0.15-0.01*i);
+		DrawLine(32,0);
+		MovePen(x-15,y+15-i);
 	}
 }
