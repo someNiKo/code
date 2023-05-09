@@ -76,12 +76,16 @@
 
 static double screen_x,screen_y;
 static double KUN_x,KUN_y;
+static int fps = 0;  //坤动画全局变量
+
+typedef enum{
+	FPS,
+} Mytimer;   
 
 void KeyboardEventProcess(int key,int event);
 void CharEventProcess(char c);
 void MouseEventProcess(int x, int y, int button, int event);
 void TimerEventProcess(int timerID);
-void DrawKUN(double x, double y, int direction);
 
 void Main()
 {
@@ -96,6 +100,8 @@ void Main()
 	registerCharEvent(CharEventProcess);
 	registerMouseEvent(MouseEventProcess);
 	registerTimerEvent(TimerEventProcess);
+
+	startTimer(FPS,100);  //启动10fps/s计时器
 
 	//初始化坤的坐标
 	KUN_x = screen_x/2;
@@ -116,32 +122,32 @@ void KeyboardEventProcess(int key,int event)
 				case VK_w:
 				case VK_W:
 				case VK_UP:
-					CleanKUN(KUN_x, KUN_y, 1);
-					DrawKUN(KUN_x, KUN_y+KUN_MOVE, 1);
+					CleanKUN(KUN_x, KUN_y);
+					DrawKUN(KUN_x, KUN_y+KUN_MOVE, fps);
 					KUN_x = KUN_x;
 					KUN_y = KUN_y + KUN_MOVE;
 					break;
 				case VK_a:
 				case VK_A:
 				case VK_LEFT:
-					CleanKUN(KUN_x, KUN_y, 1);
-					DrawKUN(KUN_x-KUN_MOVE, KUN_y, 1);
+					CleanKUN(KUN_x, KUN_y);
+					DrawKUN(KUN_x-KUN_MOVE, KUN_y, fps);
 					KUN_x = KUN_x - KUN_MOVE;
 					KUN_y = KUN_y;
 					break;
 				case VK_s:
 				case VK_S:
 				case VK_DOWN:
-					CleanKUN(KUN_x, KUN_y, 1);
-					DrawKUN(KUN_x, KUN_y-KUN_MOVE, 1);
+					CleanKUN(KUN_x, KUN_y);
+					DrawKUN(KUN_x, KUN_y-KUN_MOVE, fps);
 					KUN_x = KUN_x;
 					KUN_y = KUN_y - KUN_MOVE;
 					break;
 				case VK_d:
 				case VK_D:
 				case VK_RIGHT:
-					CleanKUN(KUN_x, KUN_y, 1);
-					DrawKUN(KUN_x+KUN_MOVE, KUN_y, 1);
+					CleanKUN(KUN_x, KUN_y);
+					DrawKUN(KUN_x+KUN_MOVE, KUN_y, fps);
 					KUN_x = KUN_x + KUN_MOVE;
 					KUN_y = KUN_y;
 					break;
@@ -176,5 +182,14 @@ void MouseEventProcess(int x, int y, int button, int event)
 ***************/
 void TimerEventProcess(int timerID)
 {
-
+	switch(timerID){
+		case FPS:
+			if(fps < 9){
+				fps += 1;
+			}else{
+				fps = 0;
+			}
+			break;
+		break;
+	}
 }

@@ -8,9 +8,7 @@ INCS    = -I"G:/mingw64/include" -I"G:/mingw64/x86_64-w64-mingw32/include" -I"G:
  -I"E:/code/include"
 DEL     = del 
 BIN     = game.exe
-TEXTS   = Makefile~ .Makefile.un~ main.c~ .main.c.un~ lib\exceptio.c~ lib\.exceptio.c.un~ lib\genlib.c~ lib\.genlib.c.un~ \
-lib\graphics.c~ lib\.graphics.c.un~ lib\linkedlist.c~ lib\.linkedlist.c.un~ lib\random.c~ lib\.random.c.un~ \
-lib\simpio.c~ lib\.simpio.c.un~ lib\strlib.c~ lib\.strlib.c.un~ lib\draw_kun.c~ lib\.draw_kun.c.un~
+
 
 
 
@@ -47,10 +45,7 @@ lib/draw_kun.o: lib/draw_kun.c
 	$(GCC) -c lib/draw_kun.c -o lib/draw_kun.o $(CFLAGS)
 
 clean: 
-	${DEL} $(COBJ) $(BIN) $(TEXTS) 
-
-fclean:
-	${DEL} $(TEXTS)
+	${DEL} $(COBJ) $(BIN) 
 
 run:
 	./$(BIN)

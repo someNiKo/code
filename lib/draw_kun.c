@@ -5,18 +5,18 @@
 #define kun_beidai_y 5*tan(PI/3)
 
 /**************
-´«ÈëÀ¤µÄ×ø±êºÍ·½Ïò»­À¤
+ä¼ å…¥å¤çš„åæ ‡å’Œæ–¹å‘
 ***************/
-void DrawKUN(double x, double y, int direction)
+void DrawKUN(double x, double y, int fps)
 {
-	SetPenColor("Blue");
+	SetPenColor("Black");
 	SetPenSize(2);
 	
-	//»­À¤Á³
-	MovePen(x+10,y);    //0.1ÎªÀ¤Á³°ë¾¶
+	//ç”»å¤è„¸
+	MovePen(x+10,y);    //å¤å¤´åŠå¾„ä¸º10åƒç´ 
 	DrawArc(10,0,360);
 	
-	//×óÀ¤Í·
+	//ç”»å·¦å¤å¤´
 	MovePen(x,y+10);
 	DrawLine(0,5);
 	DrawLine(-15,-15);
@@ -24,7 +24,7 @@ void DrawKUN(double x, double y, int direction)
 	DrawLine(10,10);
 	DrawLine(0,5);
 	
-	//ÓÒÀ¤Í·
+	//ç”»å³å¤å¤´
 	MovePen(x,y+10);
 	DrawLine(0,5);
 	DrawLine(15,-15);
@@ -32,7 +32,8 @@ void DrawKUN(double x, double y, int direction)
 	DrawLine(-10,10);
 	DrawLine(0,5);
 
-	//Ìî³ä×óÀ¤Í·
+	//å¡«å……å·¦å¤å¤´
+	SetPenColor("Gray");
 	double px = x-15, py = y;
 	int i = 1;
 	while(i < 5){
@@ -43,7 +44,7 @@ void DrawKUN(double x, double y, int direction)
 		i += 1;
 	}
 	
-	//Ìî³äÓÒÀ¤Í·
+	//å¡«å……å³å¤å¤´
 	px = x+15; py = y;
 	i=1;
 	while(i < 5){
@@ -54,30 +55,28 @@ void DrawKUN(double x, double y, int direction)
 		i += 1;
 	}
 
-	SetPenColor("Brown");
+	//ç”»èƒŒå¸¦è£¤
+	SetPenColor("Yellow");
 	SetPenSize(2);
-	//×ó±³´ø¿ã
-	//px = x - 0.05;
-	//py = y - kun_beidai_y;
-	MovePen(x - 5,y - kun_beidai_y);
+	MovePen(x - 5, y - kun_beidai_y);
 	DrawLine(0,-15);
 
-	//ÓÒ±³´ø¿ã
-	//px = x + 0.05;
-	//py = y - kun_beidai_y;
-	MovePen(x + 5,y - kun_beidai_y);
+	MovePen(x + 5, y - kun_beidai_y);
 	DrawLine(0,-15);
 	
 }
 
-void CleanKUN(double x, double y, int direction)
+/********************
+ç”¨ç™½è‰²çŸ©å½¢æ¸…é™¤å¤
+*********************/
+void CleanKUN(double x, double y)
 {
 	SetPenSize(1);
 	SetPenColor("White");
 	MovePen(x-15,y+15);
 	int i=0;
-	for(i=0;i<48;i++){
+	for(i = 0;i < 48;i++){
 		DrawLine(32,0);
-		MovePen(x-15,y+15-i);
+		MovePen(x - 15, y + 15 - i);
 	}
 }

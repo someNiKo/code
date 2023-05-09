@@ -18,8 +18,8 @@
 #include <ocidl.h>
 #include <winuser.h>
 
-void DrawKUN(double x, double y, int direction);
-void CleanKUN(double x, double y, int direction);
+void DrawKUN(double x, double y, int fps);
+void CleanKUN(double x, double y);
 
 
 
