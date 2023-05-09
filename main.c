@@ -71,15 +71,18 @@
 #define   VK_x	0x78 
 #define   VK_y	0x79 
 #define   VK_z	0x7A
-//定义坤移动的速度
-#define  KUN_MOVE  2
+static HWND graphicsWindow;
 
+//定义坤移动的速度
+static double KUN_MOVE = 1;  
 static double screen_x,screen_y;
 static double KUN_x,KUN_y;
 static int fps = 0;  //坤动画全局变量
 
+
 typedef enum{
 	FPS,
+	KUN_a,
 } Mytimer;   
 
 void KeyboardEventProcess(int key,int event);
@@ -106,7 +109,7 @@ void Main()
 	//初始化坤的坐标
 	KUN_x = screen_x/2;
 	KUN_y = screen_y/2;
-	DrawKUN(KUN_x, KUN_y, 1);
+	DrawKUN(KUN_x, KUN_y, fps);
 
 }
 
@@ -122,6 +125,7 @@ void KeyboardEventProcess(int key,int event)
 				case VK_w:
 				case VK_W:
 				case VK_UP:
+					startTimer(KUN_a, 300);
 					CleanKUN(KUN_x, KUN_y);
 					DrawKUN(KUN_x, KUN_y+KUN_MOVE, fps);
 					KUN_x = KUN_x;
@@ -130,6 +134,7 @@ void KeyboardEventProcess(int key,int event)
 				case VK_a:
 				case VK_A:
 				case VK_LEFT:
+					startTimer(KUN_a, 300);
 					CleanKUN(KUN_x, KUN_y);
 					DrawKUN(KUN_x-KUN_MOVE, KUN_y, fps);
 					KUN_x = KUN_x - KUN_MOVE;
@@ -138,6 +143,7 @@ void KeyboardEventProcess(int key,int event)
 				case VK_s:
 				case VK_S:
 				case VK_DOWN:
+					startTimer(KUN_a, 300);
 					CleanKUN(KUN_x, KUN_y);
 					DrawKUN(KUN_x, KUN_y-KUN_MOVE, fps);
 					KUN_x = KUN_x;
@@ -146,14 +152,17 @@ void KeyboardEventProcess(int key,int event)
 				case VK_d:
 				case VK_D:
 				case VK_RIGHT:
+					startTimer(KUN_a, 300);
 					CleanKUN(KUN_x, KUN_y);
 					DrawKUN(KUN_x+KUN_MOVE, KUN_y, fps);
 					KUN_x = KUN_x + KUN_MOVE;
 					KUN_y = KUN_y;
-					break;
+					break;				
 			}
 			break;
 		case KEY_UP:
+			KUN_MOVE = 1;
+			KillTimer(graphicsWindow, KUN_a);
 			break;
 	}
 }
@@ -188,6 +197,13 @@ void TimerEventProcess(int timerID)
 				fps += 1;
 			}else{
 				fps = 0;
+			}
+			CleanKUN(KUN_x, KUN_y);
+			DrawKUN(KUN_x, KUN_y, fps);			
+			break;
+		case KUN_a:
+			if(KUN_MOVE <= 10){
+				KUN_MOVE += 1;
 			}
 			break;
 		break;
