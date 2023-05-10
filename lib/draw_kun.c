@@ -60,17 +60,17 @@ void DrawKUN(double x, double y, int fps)
 }
 
 /********************
-用白色矩形清除坤
+用白色矩形清除坤 区域范围：(x-25,x+27),(y-40,y+15)
 *********************/
 void CleanKUN(double x, double y)
 {
 	SetPenSize(1);
 	SetPenColor("White");
-	MovePen(x-15,y+15);
+	MovePen(x-25,y+15);
 	int i=0;
-	for(i = 0;i < 48;i++){
-		DrawLine(32,0);
-		MovePen(x - 15, y + 15 - i);
+	for(i = 0;i < 55;i++){
+		DrawLine(52,0);
+		MovePen(x - 25, y + 15 - i);
 	}
 }
 
@@ -131,6 +131,26 @@ void fps0(double x, double y)
 
 	MovePen(x + 5, y - kun_beidai_y);
 	DrawLine(0,-15);
+
+	//画左手
+	SetPenColor("Black");
+	SetPenSize(2);
+	MovePen(x - 10, y - 10);
+	DrawLine(-15, -10);
+
+	//画右手
+	MovePen(x + 10, y - 10);
+	DrawLine(15, -10);
+
+	//画左鸡脚
+	MovePen(x - 6, y - kun_beidai_y - 15);
+	DrawLine(-7, -7);
+	DrawLine(7, -7);
+	
+	//画右鸡脚
+	MovePen(x + 6, y - kun_beidai_y - 15);
+	DrawLine(-5, -7);
+	DrawLine(5, -7);
 
 }
 

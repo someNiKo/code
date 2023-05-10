@@ -78,6 +78,7 @@ static double KUN_MOVE = 1;
 static double screen_x,screen_y;
 static double KUN_x,KUN_y;
 static int fps = 0;  //坤动画全局变量
+static bool isDown = 0;
 
 
 typedef enum{
@@ -95,6 +96,7 @@ void Main()
 	SetWindowTitle("CXK finding way");
 	SetWindowSize(1920,1080);
 	InitGraphics();
+	InitConsole();
 	
 	screen_x = GetWindowWidth();
 	screen_y = GetWindowHeight();
@@ -121,11 +123,11 @@ void KeyboardEventProcess(int key,int event)
 {
 	switch(event){
 		case KEY_DOWN:
+			isDown = 1;
 			switch(key){
 				case VK_w:
 				case VK_W:
 				case VK_UP:
-					startTimer(KUN_a, 300);
 					CleanKUN(KUN_x, KUN_y);
 					DrawKUN(KUN_x, KUN_y+KUN_MOVE, fps);
 					KUN_x = KUN_x;
@@ -134,7 +136,6 @@ void KeyboardEventProcess(int key,int event)
 				case VK_a:
 				case VK_A:
 				case VK_LEFT:
-					startTimer(KUN_a, 300);
 					CleanKUN(KUN_x, KUN_y);
 					DrawKUN(KUN_x-KUN_MOVE, KUN_y, fps);
 					KUN_x = KUN_x - KUN_MOVE;
@@ -143,7 +144,6 @@ void KeyboardEventProcess(int key,int event)
 				case VK_s:
 				case VK_S:
 				case VK_DOWN:
-					startTimer(KUN_a, 300);
 					CleanKUN(KUN_x, KUN_y);
 					DrawKUN(KUN_x, KUN_y-KUN_MOVE, fps);
 					KUN_x = KUN_x;
@@ -152,7 +152,6 @@ void KeyboardEventProcess(int key,int event)
 				case VK_d:
 				case VK_D:
 				case VK_RIGHT:
-					startTimer(KUN_a, 300);
 					CleanKUN(KUN_x, KUN_y);
 					DrawKUN(KUN_x+KUN_MOVE, KUN_y, fps);
 					KUN_x = KUN_x + KUN_MOVE;
@@ -161,9 +160,31 @@ void KeyboardEventProcess(int key,int event)
 			}
 			break;
 		case KEY_UP:
+			isDown = 0;
 			KUN_MOVE = 1;
-			KillTimer(graphicsWindow, KUN_a);
+			cancelTimer(KUN_a);
 			break;
+	}
+
+	if(isDown){
+		switch (event){
+			case KEY_DOWN:
+				switch (key){
+					case VK_f:
+					case VK_F:
+					startTimer(KUN_a, 300);
+					isDown = 0;
+					break;
+				break;
+				}
+			break;
+			case KEY_UP:
+				KUN_MOVE = 1;
+				isDown = 0;
+				cancelTimer(KUN_a);
+				break;		
+		break;
+		}		
 	}
 }
 
@@ -202,9 +223,14 @@ void TimerEventProcess(int timerID)
 			DrawKUN(KUN_x, KUN_y, fps);			
 			break;
 		case KUN_a:
-			if(KUN_MOVE <= 10){
-				KUN_MOVE += 1;
+			if(isDown){
+				if(KUN_MOVE <= 10){
+					KUN_MOVE += 1;
+				}else{
+					cancelTimer(KUN_a);
+				}				
 			}
+			printf("%lf\n", KUN_MOVE);
 			break;
 		break;
 	}
